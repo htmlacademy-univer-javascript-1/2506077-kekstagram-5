@@ -1,15 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
+const defineStringLength = (string = '', length = 1) => (string.length <= length);
 
-const defineStringLength = (string, length) => (string.length <= length);
-
-// console.log(defineStringLength('проверяемая строка', 20));
-// console.log(defineStringLength('проверяемая строка', 18));
-// console.log(defineStringLength('проверяемая строка', 10));
-// console.log();
-
-
-const findPolynomial = (string) => {
+const findPalindrome = (string = '') => {
   string = string.replaceAll(' ', '').toLowerCase();
   let hitCounter = 0;
 
@@ -21,14 +12,7 @@ const findPolynomial = (string) => {
   return (hitCounter === Math.ceil(string.length / 2));
 };
 
-// console.log(findPolynomial('топот'));
-// console.log(findPolynomial('ДовОд'));
-// console.log(findPolynomial('Кекс'));
-// console.log(findPolynomial('Лёша на полке клопа нашёл '));
-// console.log();
-
-
-const findNumbers = (string) => {
+const findNumbers = (string = '') => {
   string = string.toString().replaceAll(' ', '');
   let numberString = '';
 
@@ -40,12 +24,6 @@ const findNumbers = (string) => {
   return (numberString === '') ? NaN : Number(numberString);
 };
 
-// console.log(findNumbers('2023 год'));
-// console.log(findNumbers('ECMAScript 2022'));
-// console.log(findNumbers('1 кефир, 0.5 батона'));
-// console.log(findNumbers('агент 007'));
-// console.log(findNumbers('а я томат'));
-// console.log(findNumbers(2023));
-// console.log(findNumbers(-1));
-// console.log(findNumbers(1.5));
-// console.log();
+defineStringLength();
+findPalindrome();
+findNumbers();
