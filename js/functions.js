@@ -24,6 +24,24 @@ const findNumbers = (string = '') => {
   return (numberString === '') ? NaN : Number(numberString);
 };
 
+const isMeetingDuringWorkHours = (dayStart = '', dayEnd = '', meetingStart = '', meetingDuration = 0) => {
+  const timeData = [...dayStart.split(':'), ...dayEnd.split(':'), ...meetingStart.split(':')].map((item) => parseInt(item, 10));
+  const convertToMinutes = (hoursIndex) => timeData[hoursIndex] * 60 + timeData[hoursIndex + 1];
+  const dayStartHoursIndex = 0;
+  const dayEndHoursIndex = 2;
+  const meetingStartHoursIndex = 4;
+
+  const timeInMinutes = {
+    startTime: convertToMinutes(dayStartHoursIndex),
+    endTime: convertToMinutes(dayEndHoursIndex),
+    meetingStartTime: convertToMinutes(meetingStartHoursIndex),
+    meetingEndTime: convertToMinutes(meetingStartHoursIndex) + meetingDuration
+  };
+
+  return (timeInMinutes.startTime <= timeInMinutes.meetingStartTime && timeInMinutes.endTime >= timeInMinutes.meetingEndTime);
+};
+
 defineStringLength();
 findPalindrome();
 findNumbers();
+isMeetingDuringWorkHours();
