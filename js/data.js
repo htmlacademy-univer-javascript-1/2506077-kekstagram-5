@@ -5,7 +5,7 @@ const NAMES = [
   'Анастасия', 'Алина', 'Марина', 'Маша', 'Петр', 'Станислав', 'Гриша'
 ];
 
-const PHOTOS_DESCRIPTION = [
+const PICTURES_DESCRIPTION = [
   'Игра в футбол на улице', 'Закат на море', 'Утренний кофе',
   'Дружеские посиделки', 'Летний пикник', 'Уютный домашний интерьер',
   'Горный пейзаж', 'Цветок во дворе', 'Цветущие яблони в саду',
@@ -21,9 +21,13 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const PHOTO_OBJECTS_COUNT = 25;
+const PICTURE_OBJECTS_COUNT = 25;
 
-const PhotoId = {
+const uniquePictureId = [];
+const uniquePictureUrl = [];
+const uniqueCommentId = [];
+
+const PictureId = {
   MIN: 1,
   MAX: 25
 };
@@ -60,28 +64,21 @@ const getRandomCommentMessage = () => {
   return getRandomArrayElement(COMMENTS);
 };
 
-const generateRandomComment = () => {
-  const uniqueIdArray = [];
-  return {
-    id: getUniqueRandomInteger(CommentId.MIN, CommentId.MAX, uniqueIdArray),
-    avatar: `img/avatar-${getRandomInteger(AvatarNumber.MIN, AvatarNumber.MAX)}.svg`,
-    message: getRandomCommentMessage(),
-    name: getRandomArrayElement(NAMES)
-  };
-};
+const generateRandomComment = () => ({
+  id: getUniqueRandomInteger(CommentId.MIN, CommentId.MAX, uniqueCommentId),
+  avatar: `img/avatar-${getRandomInteger(AvatarNumber.MIN, AvatarNumber.MAX)}.svg`,
+  message: getRandomCommentMessage(),
+  name: getRandomArrayElement(NAMES)
+});
 
-const generatePhotoObject = () => {
-  const uniqueIdArray = [];
-  const uniqueUrlArray = [];
-  return {
-    id: getUniqueRandomInteger(PhotoId.MIN, PhotoId.MAX, uniqueIdArray),
-    url: `photos/${getUniqueRandomInteger(PhotoId.MIN, PhotoId.MAX, uniqueUrlArray)}.jpg`,
-    description: getRandomArrayElement(PHOTOS_DESCRIPTION),
-    likes: getRandomInteger(Likes.MIN, Likes.MAX),
-    comments: Array.from({length: getRandomInteger(CommentsCount.MIN, CommentsCount.MAX)}, generateRandomComment)
-  };
-};
+const generatePictureObject = () => ({
+  id: getUniqueRandomInteger(PictureId.MIN, PictureId.MAX, uniquePictureId),
+  url: `photos/${getUniqueRandomInteger(PictureId.MIN, PictureId.MAX, uniquePictureUrl)}.jpg`,
+  description: getRandomArrayElement(PICTURES_DESCRIPTION),
+  likes: getRandomInteger(Likes.MIN, Likes.MAX),
+  comments: Array.from({length: getRandomInteger(CommentsCount.MIN, CommentsCount.MAX)}, generateRandomComment)
+});
 
-const photosArray = () => Array.from({length: PHOTO_OBJECTS_COUNT}, generatePhotoObject);
+const createPicturesArray = () => Array.from({length: PICTURE_OBJECTS_COUNT}, generatePictureObject);
 
-export {photosArray};
+export {createPicturesArray};
