@@ -19,4 +19,6 @@ const getUniqueRandomInteger = (a, b, valuesArray) => {
   return randomNumber;
 };
 
-export {getRandomInteger, getRandomArrayElement, getUniqueRandomInteger};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomInteger, getRandomArrayElement, getUniqueRandomInteger, isEscapeKey };
