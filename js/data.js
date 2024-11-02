@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement, getUniqueRandomInteger} from './util.js';
+import { getRandomInteger, getRandomArrayElement, getUniqueRandomInteger } from './util.js';
 
 const NAMES = [
   'Игорь', 'Артем', 'Кирилл', 'Соня', 'Саша', 'Иван', 'Андрей', 'Вероника',
@@ -81,4 +81,4 @@ const generatePictureObject = () => ({
 
 const createPicturesArray = () => Array.from({length: PICTURE_OBJECTS_COUNT}, generatePictureObject);
 
-export {createPicturesArray};
+export { createPicturesArray };
