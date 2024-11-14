@@ -21,4 +21,32 @@ const getUniqueRandomInteger = (a, b, valuesArray) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getRandomInteger, getRandomArrayElement, getUniqueRandomInteger, isEscapeKey };
+const validateHashtagsCount = (value) => {
+  const hashtags = value.trim().toLowerCase().split(' ');
+  return hashtags.length <= 5;
+};
+
+const validateHashtagsUnique = (value) => {
+  const hashtags = value.trim().toLowerCase().split(' ');
+  const uniqueHashtags = new Set(hashtags);
+  return uniqueHashtags.size === hashtags.length;
+};
+
+const validateHashtagsPattern = (value) => {
+  const hashtags = value.trim().toLowerCase().split(' ');
+  const hashtagPattern = /^#[a-zа-яё0-9]{1,19}$/;
+  return !value || hashtags.every((hashtag) => hashtagPattern.test(hashtag));
+};
+
+const validateDescriptionLength = (value) => !value || value.length <= 140;
+
+export {
+  getRandomInteger,
+  getRandomArrayElement,
+  getUniqueRandomInteger,
+  isEscapeKey,
+  validateHashtagsCount,
+  validateHashtagsUnique,
+  validateHashtagsPattern,
+  validateDescriptionLength
+};
