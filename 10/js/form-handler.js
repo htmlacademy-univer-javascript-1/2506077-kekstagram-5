@@ -29,23 +29,20 @@ const resetFormFields = () => {
   descriptionInput.value = '';
 };
 
-const preventFormCloseOnEsc = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.stopPropagation();
-  }
-};
+const pristine = initializeValidation(uploadForm, hashtagsInput, descriptionInput);
+submitForm(uploadForm, pristine);
 
 const closeOverlay = () => {
   imageEditForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetFormFields();
-
-  hashtagsInput.removeEventListener('keydown', preventFormCloseOnEsc);
-  descriptionInput.removeEventListener('keydown', preventFormCloseOnEsc);
+  pristine.reset();
 };
 
+const isInputFieldFocused = (evt) => evt.target === hashtagsInput || evt.target === descriptionInput;
+
 const onEscapeKeyDown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !isInputFieldFocused(evt)) {
     closeOverlay();
   }
 };
@@ -53,11 +50,6 @@ const onEscapeKeyDown = (evt) => {
 const addEventListeners = () => {
   closeEditFormButton.addEventListener('click', closeOverlay);
   document.addEventListener('keydown', onEscapeKeyDown);
-  hashtagsInput.addEventListener('keydown', preventFormCloseOnEsc);
-  descriptionInput.addEventListener('keydown', preventFormCloseOnEsc);
 };
-
-const pristine = initializeValidation(uploadForm, hashtagsInput, descriptionInput);
-submitForm(uploadForm, pristine);
 
 addEventListeners();
