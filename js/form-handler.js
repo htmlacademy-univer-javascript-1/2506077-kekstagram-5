@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { initializeValidation, submitForm } from './validation.js';
+import { resetScale } from './image-scale.js';
+import { resetEffect } from './effects-slider.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const imageUploadInput = document.querySelector('.img-upload__input');
@@ -37,6 +39,8 @@ const closeOverlay = () => {
   document.body.classList.remove('modal-open');
   resetFormFields();
   pristine.reset();
+  resetScale();
+  resetEffect();
 };
 
 const isInputFieldFocused = (evt) => evt.target === hashtagsInput || evt.target === descriptionInput;
