@@ -1,4 +1,4 @@
-import { createPicturesArray } from './data.js';
+import { loadData } from './data.js';
 import { openBigPicture } from './big-picture.js';
 
 const picturesList = document.querySelector('.pictures');
@@ -27,8 +27,8 @@ const createPicturesFragment = (pictures) => {
   return fragment;
 };
 
-const renderPictures = () => {
-  const allPictures = createPicturesArray();
+const renderPictures = async () => {
+  const allPictures = await loadData();
   const fragment = createPicturesFragment(allPictures);
   picturesList.appendChild(fragment);
 };

@@ -31,14 +31,4 @@ const initializeValidation = (form, hashtagsInput, descriptionInput) => {
   return pristine;
 };
 
-const submitForm = (form, pristine) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    if (!pristine.validate()) {
-      return;
-    }
-    form.submit();
-  });
-};
-
-export { initializeValidation, submitForm };
+export { initializeValidation };
