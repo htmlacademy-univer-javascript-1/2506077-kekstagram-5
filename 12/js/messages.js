@@ -4,6 +4,26 @@ import { closeOverlay, setErrorMessageStatus } from './form-handler.js';
 const successTemplate = document.querySelector('#success');
 const errorTemplate = document.querySelector('#error');
 
+const showDataLoadError = () => {
+  const errorMessage = document.createElement('div');
+  errorMessage.classList.add('error-message');
+  errorMessage.textContent = 'Ошибка загрузки данных';
+
+  Object.assign(errorMessage.style, {
+    position: 'fixed',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: '16px',
+    backgroundColor: 'red',
+    padding: '20px',
+    borderRadius: '5px',
+    zIndex: 999
+  });
+
+  document.body.appendChild(errorMessage);
+};
+
 const showSuccessMessage = () => {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
 
@@ -61,4 +81,4 @@ const showErrorMessage = () => {
   });
 };
 
-export { showSuccessMessage, showErrorMessage };
+export { showDataLoadError, showSuccessMessage, showErrorMessage };

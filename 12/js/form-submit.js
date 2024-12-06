@@ -1,4 +1,7 @@
+import { sendRequest } from './util.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
+
+const POST_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
 const submitForm = (form, pristine) => {
   const submitButton = document.querySelector('.img-upload__submit');
@@ -12,22 +15,17 @@ const submitForm = (form, pristine) => {
 
     const formData = new FormData(form);
     submitButton.disabled = true;
-    fetch('https://29.javascript.htmlacademy.pro/kekstagram', {
+
+    sendRequest({
+      url: POST_URL,
       method: 'POST',
       body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        }
-        throw new Error(`${response.status}`);
-      })
-      .then((response) => response.json())
-      .then(() => showSuccessMessage())
-      .catch(() => showErrorMessage())
-      .finally(() => {
+      onSuccess: () => showSuccessMessage(),
+      onError: () => showErrorMessage(),
+      onFinally: () => {
         submitButton.disabled = false;
-      });
+      },
+    });
   });
 };
 
