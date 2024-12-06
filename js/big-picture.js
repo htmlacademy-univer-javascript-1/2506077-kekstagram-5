@@ -72,8 +72,8 @@ const onCloseBigPictureClick = () => {
 };
 
 const addEventListeners = () => {
-  loadCommentsButton.addEventListener('click', onLoadCommentsButtonClick);
   document.addEventListener('keydown', onEscapeKeyDown);
+  loadCommentsButton.addEventListener('click', onLoadCommentsButtonClick);
 };
 
 const openBigPicture = (picture) => {

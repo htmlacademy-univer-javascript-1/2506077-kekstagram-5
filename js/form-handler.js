@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util.js';
-import { initializeValidation, submitForm } from './validation.js';
+import { initializeValidation } from './validation.js';
+import { submitForm } from './form-submit.js';
 import { resetScale } from './image-scale.js';
 import { resetEffect } from './effects-slider.js';
 
@@ -12,6 +13,8 @@ const effectLevel = document.querySelector('.effect-level__value');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 const effectButtons = document.querySelectorAll('.effects__radio');
+
+let isErrorMessageOpen = false;
 
 imageUploadInput.addEventListener('change', () => {
   if (imageUploadInput.files.length > 0) {
@@ -45,8 +48,12 @@ const closeOverlay = () => {
 
 const isInputFieldFocused = (evt) => evt.target === hashtagsInput || evt.target === descriptionInput;
 
+const setErrorMessageStatus = (status) => {
+  isErrorMessageOpen = status;
+};
+
 const onEscapeKeyDown = (evt) => {
-  if (isEscapeKey(evt) && !isInputFieldFocused(evt)) {
+  if (isEscapeKey(evt) && !isInputFieldFocused(evt) && !isErrorMessageOpen) {
     closeOverlay();
   }
 };
@@ -57,3 +64,5 @@ const addEventListeners = () => {
 };
 
 addEventListeners();
+
+export { closeOverlay, setErrorMessageStatus };
