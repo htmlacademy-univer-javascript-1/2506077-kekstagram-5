@@ -45,6 +45,35 @@ const validateHashtagsPattern = (value) => {
 
 const validateDescriptionLength = (value) => !value || value.length <= MAX_DESCRIPTION_LENGTH;
 
+const sendRequest = ({ url, method = 'GET', body = null, onSuccess, onError, onFinally }) =>
+  fetch(url, {
+    method,
+    body
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status}`);
+    })
+    .then((data) => {
+      if (onSuccess) {
+        onSuccess(data);
+      }
+      return data;
+    })
+    .catch(() => {
+      if (onError) {
+        onError();
+      }
+    })
+    .finally(() => {
+      if (onFinally) {
+        onFinally();
+      }
+    });
+
+
 export {
   getRandomInteger,
   getRandomArrayElement,
@@ -53,5 +82,6 @@ export {
   validateHashtagsCount,
   validateHashtagsUnique,
   validateHashtagsPattern,
-  validateDescriptionLength
+  validateDescriptionLength,
+  sendRequest
 };

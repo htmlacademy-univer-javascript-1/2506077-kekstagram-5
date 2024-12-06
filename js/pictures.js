@@ -1,6 +1,8 @@
-import { loadData } from './data.js';
 import { openBigPicture } from './big-picture.js';
+import { sendRequest } from './util.js';
+import { showDataLoadError } from './messages.js';
 
+const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -28,7 +30,10 @@ const createPicturesFragment = (pictures) => {
 };
 
 const renderPictures = async () => {
-  const allPictures = await loadData();
+  const allPictures = await sendRequest({
+    url: DATA_URL,
+    onError: () => showDataLoadError()
+  });
   const fragment = createPicturesFragment(allPictures);
   picturesList.appendChild(fragment);
 };
