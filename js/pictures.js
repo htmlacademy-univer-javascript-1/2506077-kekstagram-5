@@ -2,6 +2,7 @@ import { openBigPicture } from './big-picture.js';
 import { sendRequest } from './util.js';
 import { showDataLoadError } from './messages.js';
 
+const DEFAULT_DEBOUNCE_DELAY = 500;
 const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -65,7 +66,7 @@ const filterDiscussed = (pictures) => {
   return discussedPictures;
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay = DEFAULT_DEBOUNCE_DELAY) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
