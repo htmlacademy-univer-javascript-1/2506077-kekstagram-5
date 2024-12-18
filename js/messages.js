@@ -24,61 +24,41 @@ const showDataLoadError = () => {
   document.body.appendChild(errorMessage);
 };
 
-const showSuccessMessage = () => {
-  document.querySelector('.img-upload__overlay').classList.add('hidden');
+const createMessage = (template, type, closeCallback) => {
+  const message = template.content.cloneNode(true);
+  const section = message.querySelector(type);
+  const button = message.querySelector(`${type}__button`);
+  document.body.appendChild(message);
 
-  const successMessage = successTemplate.content.cloneNode(true);
-  const successSection = successMessage.querySelector('.success');
-  const successButton = successMessage.querySelector('.success__button');
-  document.body.appendChild(successMessage);
-
-  successButton.addEventListener('click', () => {
-    successSection.remove();
-    closeOverlay();
+  button.addEventListener('click', () => {
+    section.remove();
+    closeCallback();
   });
 
   const onEscapeKeyDown = (evt) => {
     if (isEscapeKey(evt)) {
-      successSection.remove();
-      closeOverlay();
+      section.remove();
+      closeCallback();
     }
   };
   document.addEventListener('keydown', onEscapeKeyDown);
 
-  successSection.addEventListener('click', (evt) => {
-    if (evt.target === successSection) {
-      successSection.remove();
-      closeOverlay();
+  section.addEventListener('click', (evt) => {
+    if (evt.target === section) {
+      section.remove();
+      closeCallback();
     }
   });
 };
 
+const showSuccessMessage = () => {
+  document.querySelector('.img-upload__overlay').classList.add('hidden');
+  createMessage(successTemplate, '.success', closeOverlay);
+};
+
 const showErrorMessage = () => {
-  const errorMessage = errorTemplate.content.cloneNode(true);
-  const errorSection = errorMessage.querySelector('.error');
-  const errorButton = errorMessage.querySelector('.error__button');
-  document.body.appendChild(errorMessage);
   setErrorMessageStatus(true);
-
-  errorButton.addEventListener('click', () => {
-    errorSection.remove();
-    setErrorMessageStatus(false);
-  });
-
-  const onEscapeKeyDown = (evt) => {
-    if (isEscapeKey(evt)) {
-      errorSection.remove();
-      setErrorMessageStatus(false);
-    }
-  };
-  document.addEventListener('keydown', onEscapeKeyDown);
-
-  errorSection.addEventListener('click', (evt) => {
-    if (evt.target === errorSection) {
-      errorSection.remove();
-      setErrorMessageStatus(false);
-    }
-  });
+  createMessage(errorTemplate, '.error', () => setErrorMessageStatus(false));
 };
 
 export { showDataLoadError, showSuccessMessage, showErrorMessage };

@@ -1,5 +1,7 @@
 const MAX_HASHTAGS = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
+const DEFAULT_DEBOUNCE_DELAY = 500;
+const RANDOM_PICTURES_COUNT = 10;
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -73,6 +75,25 @@ const sendRequest = ({ url, method = 'GET', body = null, onSuccess, onError, onF
       }
     });
 
+const filterDefault = (pictures) => pictures.slice();
+
+const filterRandom = (pictures) => {
+  const randomPictures = pictures.slice().sort(() => 0.5 - Math.random());
+  return randomPictures.slice(0, RANDOM_PICTURES_COUNT);
+};
+
+const filterDiscussed = (pictures) => {
+  const discussedPictures = pictures.slice().sort((a, b) => b.comments.length - a.comments.length);
+  return discussedPictures;
+};
+
+const debounce = (callback, timeoutDelay = DEFAULT_DEBOUNCE_DELAY) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
 
 export {
   getRandomInteger,
@@ -83,5 +104,9 @@ export {
   validateHashtagsUnique,
   validateHashtagsPattern,
   validateDescriptionLength,
-  sendRequest
+  sendRequest,
+  filterDefault,
+  filterRandom,
+  filterDiscussed,
+  debounce
 };
