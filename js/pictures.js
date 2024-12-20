@@ -1,8 +1,7 @@
-import { openBigPicture } from './big-picture.js';
-import { sendRequest } from './util.js';
+import { openBigPicture } from './big-picture-modal.js';
+import { sendRequest, filterDefault, filterRandom, filterDiscussed, debounce } from './util.js';
 import { showDataLoadError } from './messages.js';
 
-const DEFAULT_DEBOUNCE_DELAY = 500;
 const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -54,26 +53,6 @@ const fetchPictures = async () => {
   imgFilters.classList.remove('img-filters--inactive');
 };
 
-const filterDefault = (pictures) => pictures;
-
-const filterRandom = (pictures) => {
-  const randomPictures = pictures.slice().sort(() => 0.5 - Math.random());
-  return randomPictures.slice(0, 10);
-};
-
-const filterDiscussed = (pictures) => {
-  const discussedPictures = pictures.slice().sort((a, b) => b.comments.length - a.comments.length);
-  return discussedPictures;
-};
-
-const debounce = (callback, timeoutDelay = DEFAULT_DEBOUNCE_DELAY) => {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-};
-
 const onFilterChange = (filter) => {
   let filteredPictures;
   switch (filter) {
@@ -98,4 +77,4 @@ filterButtons.forEach((button) => {
   }));
 });
 
-fetchPictures();
+export { fetchPictures };
