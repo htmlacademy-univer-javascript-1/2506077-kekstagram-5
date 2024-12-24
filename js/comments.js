@@ -25,7 +25,7 @@ const createCommentElement = (comment) => {
 };
 
 const updateCommentsCountData = () => {
-  сommentsCountData.innerHTML = `${displayedCommentsCount} из <span class="comments-count">${allComments.length}</span> комментариев`;
+  сommentsCountData.innerHTML = `<span class="social__comment-shown-count">${displayedCommentsCount}</span> из <span class="social__comment-total-count">${allComments.length}</span> комментариев`;
 };
 
 const renderComments = () => {

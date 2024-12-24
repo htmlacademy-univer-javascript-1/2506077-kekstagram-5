@@ -15,17 +15,26 @@ const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 const effectButtons = document.querySelectorAll('.effects__radio');
 const previewImage = document.querySelector('.img-upload__preview img');
+const previewElements = document.querySelectorAll('.effects__preview');
 
 let isErrorMessageOpen = false;
 
+const pristine = initializeValidation(uploadForm, hashtagsInput, descriptionInput);
+submitForm(uploadForm, pristine);
+
 imageUploadInput.addEventListener('change', () => {
   if (imageUploadInput.files.length > 0) {
+    pristine.reset();
     const file = imageUploadInput.files[0];
     const fileName = file.name.toLowerCase();
     const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
     if (matches) {
-      previewImage.src = URL.createObjectURL(file);
+      const imgUrl = URL.createObjectURL(file);
+      previewImage.src = imgUrl;
+      previewElements.forEach((element) => {
+        element.style.backgroundImage = `url(${imgUrl})`;
+      });
       imageEditForm.classList.remove('hidden');
       document.body.classList.add('modal-open');
     }
@@ -43,9 +52,6 @@ const resetFormFields = () => {
   descriptionInput.value = '';
 };
 
-const pristine = initializeValidation(uploadForm, hashtagsInput, descriptionInput);
-submitForm(uploadForm, pristine);
-
 const closeOverlay = () => {
   imageEditForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
@@ -53,6 +59,8 @@ const closeOverlay = () => {
   pristine.reset();
   resetScale();
   resetEffect();
+
+  closeEditFormButton.removeEventListener('click', closeOverlay);
 };
 
 const isInputFieldFocused = (evt) => evt.target === hashtagsInput || evt.target === descriptionInput;
