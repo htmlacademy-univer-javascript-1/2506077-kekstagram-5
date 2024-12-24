@@ -1,6 +1,5 @@
 const MAX_HASHTAGS = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
-const DEFAULT_DEBOUNCE_DELAY = 500;
 const RANDOM_PICTURES_COUNT = 10;
 
 const getRandomInteger = (a, b) => {
@@ -61,6 +60,7 @@ const sendRequest = ({ url, method = 'GET', body = null, onSuccess, onError, onF
     .then((data) => {
       if (onSuccess) {
         onSuccess(data);
+        document.body.classList.remove('modal-open');
       }
       return data;
     })
@@ -87,7 +87,7 @@ const filterDiscussed = (pictures) => {
   return discussedPictures;
 };
 
-const debounce = (callback, timeoutDelay = DEFAULT_DEBOUNCE_DELAY) => {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);

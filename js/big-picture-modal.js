@@ -39,7 +39,7 @@ const openBigPicture = (picture) => {
   bigPicture.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img img').src = picture.url;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
-  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPicture.querySelector('.social__comment-total-count').textContent = picture.comments.length;
   bigPicture.querySelector('.social__caption').textContent = picture.description;
   replaceAllComments(picture.comments.slice());
 
