@@ -7,7 +7,7 @@ const DEFAULT_DEBOUNCE_DELAY = 500;
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const imgFilters = document.querySelector('.img-filters');
-const filterButtons = document.querySelectorAll('.img-filters__button');
+const filterButtons = imgFilters.querySelectorAll('.img-filters__button');
 
 let allPictures = [];
 let currentPictures = [];
@@ -76,9 +76,11 @@ filterButtons.forEach((button) => {
   button.addEventListener('click', (evt) => {
     filterButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
     evt.target.classList.add('img-filters__button--active');
-    const filter = evt.target.id;
-    debounce(() => onFilterChange(filter), DEFAULT_DEBOUNCE_DELAY)();
   });
+  button.addEventListener('click', debounce((evt) => {
+    const filter = evt.target.id;
+    onFilterChange(filter);
+  }, DEFAULT_DEBOUNCE_DELAY));
 });
 
 export { fetchPictures };
