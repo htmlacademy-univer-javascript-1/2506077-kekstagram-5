@@ -1,6 +1,7 @@
-const imagePreview = document.querySelector('.img-upload__preview img');
-const effectLevelContainer = document.querySelector('.img-upload__effect-level');
-const effectLevelValue = document.querySelector('.effect-level__value');
+const imageEditForm = document.querySelector('.img-upload__overlay');
+const imagePreview = imageEditForm.querySelector('.img-upload__preview img');
+const effectLevelContainer = imageEditForm.querySelector('.img-upload__effect-level');
+const effectLevelValue = effectLevelContainer.querySelector('.effect-level__value');
 
 const resetEffect = () => {
   effectLevelContainer.style.display = 'none';

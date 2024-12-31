@@ -1,10 +1,11 @@
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const SCALE_STEP = 25;
-const smallerButton = document.querySelector('.scale__control--smaller');
-const biggerButton = document.querySelector('.scale__control--bigger');
-const scaleValueInput = document.querySelector('.scale__control--value');
-const imagePreview = document.querySelector('.img-upload__preview img');
+const imageEditForm = document.querySelector('.img-upload__overlay');
+const smallerButton = imageEditForm.querySelector('.scale__control--smaller');
+const biggerButton = imageEditForm.querySelector('.scale__control--bigger');
+const scaleValueInput = imageEditForm.querySelector('.scale__control--value');
+const imagePreview = imageEditForm.querySelector('.img-upload__preview img');
 let scaleValue = MAX_SCALE;
 
 const updateScale = () => {

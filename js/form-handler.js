@@ -6,16 +6,16 @@ import { resetEffect } from './image-effects.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const uploadForm = document.querySelector('.img-upload__form');
-const imageUploadInput = document.querySelector('.img-upload__input');
-const imageEditForm = document.querySelector('.img-upload__overlay');
-const closeEditFormButton = document.querySelector('.img-upload__cancel');
-const imageScale = document.querySelector('.scale__control--value');
-const effectLevel = document.querySelector('.effect-level__value');
-const hashtagsInput = document.querySelector('.text__hashtags');
-const descriptionInput = document.querySelector('.text__description');
-const effectButtons = document.querySelectorAll('.effects__radio');
-const previewImage = document.querySelector('.img-upload__preview img');
-const previewElements = document.querySelectorAll('.effects__preview');
+const imageUploadInput = uploadForm.querySelector('.img-upload__input');
+const imageEditForm = uploadForm.querySelector('.img-upload__overlay');
+const closeEditFormButton = imageEditForm.querySelector('.img-upload__cancel');
+const imageScale = imageEditForm.querySelector('.scale__control--value');
+const effectLevel = imageEditForm.querySelector('.effect-level__value');
+const hashtagsInput = imageEditForm.querySelector('.text__hashtags');
+const descriptionInput = imageEditForm.querySelector('.text__description');
+const effectButtons = imageEditForm.querySelectorAll('.effects__radio');
+const previewImage = imageEditForm.querySelector('.img-upload__preview img');
+const previewElements = imageEditForm.querySelectorAll('.effects__preview');
 
 let isErrorMessageOpen = false;
 
