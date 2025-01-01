@@ -25,7 +25,6 @@ const showDataLoadError = () => {
     borderRadius: '5px',
     zIndex: Z_INDEX
   });
-
   document.body.appendChild(errorMessage);
 };
 
